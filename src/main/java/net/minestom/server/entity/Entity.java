@@ -1093,7 +1093,7 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
         return Collections.unmodifiableSet(passengers);
     }
 
-    protected @NotNull SetPassengersPacket getPassengersPacket() {
+    public @NotNull SetPassengersPacket getPassengersPacket() {
         return new SetPassengersPacket(getEntityId(), passengers.stream().map(Entity::getEntityId).toList());
     }
 
