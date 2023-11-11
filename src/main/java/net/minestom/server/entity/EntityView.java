@@ -96,11 +96,8 @@ final class EntityView {
 
     public void forManuals(@NotNull Consumer<Player> consumer) {
         synchronized (mutex) {
-            for (Iterator<Player> it = manualViewers.iterator(); it.hasNext();) {
-                Player manualViewer = it.next();
-                consumer.accept(manualViewer);
-            }
-            //this.manualViewers.forEach(consumer);
+            Set<Player> manualViewersCopy = Set.copyOf(this.manualViewers);
+            manualViewersCopy.forEach(consumer);
         }
     }
 
