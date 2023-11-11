@@ -74,6 +74,7 @@ public class PlayerPositionListener {
             if (packetPosition.samePoint(eventPosition)) {
                 player.refreshPosition(eventPosition, true);
                 player.refreshOnGround(onGround);
+                player.teleport(eventPosition);
                 player.setView(eventPosition.yaw(), eventPosition.pitch());
             } else {
                 player.teleport(eventPosition);
