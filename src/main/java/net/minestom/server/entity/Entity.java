@@ -1345,7 +1345,6 @@ public class Entity implements Viewable, Tickable, Schedulable, Snapshotable, Ev
             PacketUtils.prepareViewablePacket(chunk, new EntityHeadLookPacket(getEntityId(), position.yaw()), this);
             PacketUtils.prepareViewablePacket(chunk, EntityPositionAndRotationPacket.getPacket(getEntityId(), position,
                     lastSyncedPosition, isOnGround()), this);
-            //PacketUtils.prepareViewablePacket(chunk, new EntityRotationPacket(getEntityId(), position.yaw(), position.pitch(), onGround), this);
         }
         this.lastSyncedPosition = position;
     }
