@@ -20,7 +20,6 @@ import net.minestom.server.utils.TickUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collection;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Utility methods to convert adventure enums to their packet values.
@@ -102,8 +101,7 @@ public class AdventurePacketConvertor {
     }
 
     /**
-     * Creates a sound packet from a sound and a location.<br>
-     * Random variation by default unless a seed is provided in the {@link Sound}.
+     * Creates a sound packet from a sound and a location.
      *
      * @param sound the sound
      * @param x     the x coordinate
@@ -113,19 +111,17 @@ public class AdventurePacketConvertor {
      */
     public static @NotNull ServerPacket createSoundPacket(@NotNull Sound sound, double x, double y, double z) {
         final SoundEvent minestomSound = SoundEvent.fromNamespaceId(sound.name().asString());
-        final long seed = sound.seed().orElse(ThreadLocalRandom.current().nextLong());
         if (minestomSound == null) {
             return new SoundEffectPacket(sound.name().asString(), null, sound.source(),
-                    new Vec(x, y, z), sound.volume(), sound.pitch(), seed);
+                    new Vec(x, y, z), sound.volume(), sound.pitch(), 0);
         } else {
             return new SoundEffectPacket(minestomSound, null, sound.source(),
-                    new Vec(x, y, z), sound.volume(), sound.pitch(), seed);
+                    new Vec(x, y, z), sound.volume(), sound.pitch(), 0);
         }
     }
 
     /**
-     * Creates a sound effect packet from a sound and an emitter.<br>
-     * Random variation by default unless a seed is provided in the {@link Sound}.
+     * Creates a sound effect packet from a sound and an emitter.
      *
      * @param sound   the sound
      * @param emitter the emitter, must be an {@link Entity}
@@ -138,11 +134,11 @@ public class AdventurePacketConvertor {
             throw new IllegalArgumentException("you can only call this method with entities");
 
         final SoundEvent minestomSound = SoundEvent.fromNamespaceId(sound.name().asString());
-        final long seed = sound.seed().orElse(ThreadLocalRandom.current().nextLong());
+
         if (minestomSound != null) {
-            return new EntitySoundEffectPacket(minestomSound, null, sound.source(), entity.getEntityId(), sound.volume(), sound.pitch(), seed);
+            return new EntitySoundEffectPacket(minestomSound, null, sound.source(), entity.getEntityId(), sound.volume(), sound.pitch(), 0);
         } else {
-            return new EntitySoundEffectPacket(sound.name().asString(), null, sound.source(), entity.getEntityId(), sound.volume(), sound.pitch(), seed);
+            return new EntitySoundEffectPacket(sound.name().asString(), null, sound.source(), entity.getEntityId(), sound.volume(), sound.pitch(), 0);
         }
     }
 
